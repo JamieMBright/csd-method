@@ -69,7 +69,7 @@ rate_dif(isinf(rate_dif) | isnan(rate_dif))=1;
 % perentage difference
 pdiff_ghi = abs(ghim-ghicsm)./ghicsm;
 pdiff_dni = abs(dnim-dnicsm)./dnicsm;
-pdiff_dif = (difm-difcsm)./difcsm;
+pdiff_dif = abs(difm-difcsm)./difcsm;
 
 % preallocate
 csd_ghi = ones(size(ghim));
@@ -78,8 +78,8 @@ csd_dif = ones(size(ghim));
 
 % criteria
 csd_ghi((rate_ghi<1+R_ghi & rate_ghi>1-R_ghi) & pdiff_ghi<P_ghi) = 0;
-csd_dni((rate_dni<1+R_dni & rate_dni>1-R_dni)& pdiff_dni<P_dni) = 0;
-csd_dif((rate_dif<1+R_dif & rate_dif>1-R_dif) & pdiff_dif<P_dif) =0;
+csd_dni((rate_dni<1+R_dni & rate_dni>1-R_dni) & pdiff_dni<P_dni) = 0;
+csd_dif((rate_dif<1+R_dif & rate_dif>1-R_dif) & pdiff_dif<P_dif) = 0;
 
 csd_inverse=zeros(size(ghi));
 csd_inverse(csd_ghi==0 & csd_dni==0 & csd_dif==0)=1;
